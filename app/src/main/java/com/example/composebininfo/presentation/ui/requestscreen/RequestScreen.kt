@@ -20,17 +20,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.composebininfo.R
 
 
 @Composable
 fun RequestScreen(
     modifier: Modifier = Modifier,
-    requestScreenViewModel: MainViewModel = viewModel()
 ) {
+    val requestViewModel: RequestViewModel = hiltViewModel()
 
-    val requestScreenUiState by requestScreenViewModel.requestScreenUiState.collectAsState()
+    val requestScreenUiState by requestViewModel.requestScreenUiState.collectAsState()
     val context = LocalContext.current
 
     Column(
@@ -39,15 +39,15 @@ fun RequestScreen(
         modifier = modifier.fillMaxSize()
     ) {
         RequestLayout(
-            userInput = requestScreenViewModel.userInput,
-            onUserInputChange = { input -> requestScreenViewModel.updateUserInput(input) },
+            userInput = requestViewModel.userInput,
+            onUserInputChange = { input -> requestViewModel.updateUserInput(input) },
             isIncorrectInput = requestScreenUiState.isIncorrectInput.also { isIncorrectInput ->
                 if (isIncorrectInput) {
-                    requestScreenViewModel.makeToast(context,R.string.wrong_input)
+                    requestViewModel.makeToast(context,R.string.wrong_input)
                 }
             },
             onKeyboardDone = {
-                requestScreenViewModel.getInfo()
+                requestViewModel.getInfo()
             }
         )
         Button(
@@ -55,7 +55,7 @@ fun RequestScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 40.dp, vertical = 80.dp),
             onClick = {
-                requestScreenViewModel.getInfo()
+                requestViewModel.getInfo()
             }
         ) {
             Text(stringResource(R.string.get_info))
