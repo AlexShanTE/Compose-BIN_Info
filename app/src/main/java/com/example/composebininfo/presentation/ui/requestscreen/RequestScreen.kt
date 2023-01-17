@@ -21,12 +21,14 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.example.composebininfo.R
-
+import com.example.composebininfo.presentation.ui.bininfoapp.Screen
 
 @Composable
 fun RequestScreen(
     modifier: Modifier = Modifier,
+    navController: NavController
 ) {
     val requestViewModel: RequestViewModel = hiltViewModel()
 
@@ -41,13 +43,12 @@ fun RequestScreen(
         RequestLayout(
             userInput = requestViewModel.userInput,
             onUserInputChange = { input -> requestViewModel.updateUserInput(input) },
-            isIncorrectInput = requestScreenUiState.isIncorrectInput.also { isIncorrectInput ->
-                if (isIncorrectInput) {
-                    requestViewModel.makeToast(context,R.string.wrong_input)
-                }
-            },
+            isCorrectInput = requestScreenUiState.isCorrectInput ,
             onKeyboardDone = {
-                requestViewModel.getInfo()
+               if (requestViewModel.checkUserInput(requestViewModel.userInput))
+                   navController.navigate(Screen.BinInfoScreen.withArgs(requestViewModel.userInput))
+               else
+                   requestViewModel.makeToast(context,R.string.wrong_input)
             }
         )
         Button(
@@ -55,7 +56,10 @@ fun RequestScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 40.dp, vertical = 80.dp),
             onClick = {
-                requestViewModel.getInfo()
+                if (requestViewModel.checkUserInput(requestViewModel.userInput))
+                    navController.navigate(Screen.BinInfoScreen.withArgs(requestViewModel.userInput))
+                else
+                    requestViewModel.makeToast(context,R.string.wrong_input)
             }
         ) {
             Text(stringResource(R.string.get_info))
@@ -69,7 +73,7 @@ fun RequestLayout(
     modifier: Modifier = Modifier,
     userInput: String,
     onUserInputChange: (String) -> Unit,
-    isIncorrectInput: Boolean,
+    isCorrectInput: Boolean,
     onKeyboardDone: () -> Unit
 ) {
     OutlinedTextField(
@@ -79,13 +83,8 @@ fun RequestLayout(
             .fillMaxWidth()
             .padding(horizontal = 24.dp),
         onValueChange = onUserInputChange,
-        label = {
-            if (isIncorrectInput)
-                Text(stringResource(R.string.wrong_input))
-            else
-                Text(stringResource(R.string.enter_your_bin))
-        },
-        isError = isIncorrectInput,
+        label = { Text(stringResource(R.string.enter_your_bin)) },
+        isError = !isCorrectInput,
         keyboardOptions = KeyboardOptions.Default.copy(
             imeAction = ImeAction.Done
         ),
@@ -98,5 +97,6 @@ fun RequestLayout(
 @Composable
 @Preview(showBackground = true)
 fun RequestScreenPreview() {
-    RequestScreen()
+    val context = LocalContext.current
+    RequestScreen(navController = NavController(context))
 }
