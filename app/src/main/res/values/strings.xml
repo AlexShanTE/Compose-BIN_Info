@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">ComposeBINInfo</string>
+
+    <string name="enter_your_bin">Please enter your BIN</string>
+    <string name="wrong_input">BIN should be at least 4 sings</string>
+    <string name="get_info">Get info</string>
 </resources>
