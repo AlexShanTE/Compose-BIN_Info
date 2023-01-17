@@ -1,4 +1,4 @@
-package com.example.composebininfo
+package com.example.composebininfo.presentation.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.composebininfo.presentation.ui.requestscreen.RequestScreen
 import com.example.composebininfo.presentation.ui.theme.ComposeBINInfoTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
