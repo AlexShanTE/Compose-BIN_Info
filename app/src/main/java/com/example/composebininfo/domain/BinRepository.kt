@@ -1,6 +1,7 @@
 package com.example.composebininfo.domain
 
 interface BinRepository {
-    fun getInfo(bin: String) : BinInfo
+
+    suspend fun getInfo(bin: String) : BinInfo
 
 }

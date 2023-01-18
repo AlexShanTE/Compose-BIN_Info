@@ -3,10 +3,12 @@ package com.example.composebininfo.data
 import com.example.composebininfo.domain.BinInfo
 import com.example.composebininfo.domain.BinRepository
 
-class BinRepositoryImpl: BinRepository {
+class BinRepositoryImpl(
+    private val binApi: BinApi
+): BinRepository {
 
-    override fun getInfo(bin: String): BinInfo {
-        TODO("Not yet implemented")
+    override suspend fun getInfo(bin: String): BinInfo {
+        return binApi.getInfoByBin(bin = bin)
     }
 
 }
