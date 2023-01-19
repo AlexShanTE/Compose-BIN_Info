@@ -1,7 +1,6 @@
 package com.example.composebininfo.presentation.ui.bininfoscreen
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -23,11 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -39,6 +34,13 @@ import com.example.composebininfo.domain.Number
 import com.example.composebininfo.presentation.ui.bininfoscreen.BinViewModel.Companion.GEO
 import com.example.composebininfo.presentation.ui.bininfoscreen.BinViewModel.Companion.PHONE
 import com.example.composebininfo.presentation.ui.bininfoscreen.BinViewModel.Companion.URL
+import com.example.composebininfo.presentation.ui.bininfoscreen.components.BankComponent
+import com.example.composebininfo.presentation.ui.bininfoscreen.components.BrandComponent
+import com.example.composebininfo.presentation.ui.bininfoscreen.components.CardNumberComponent
+import com.example.composebininfo.presentation.ui.bininfoscreen.components.CountryComponent
+import com.example.composebininfo.presentation.ui.bininfoscreen.components.PrepaidComponent
+import com.example.composebininfo.presentation.ui.bininfoscreen.components.SchemeComponent
+import com.example.composebininfo.presentation.ui.bininfoscreen.components.TypeComponent
 
 @Composable
 fun BinInfoScreen(
@@ -98,115 +100,32 @@ fun BinInfoLayout(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Column(
-                modifier = modifier.weight(1f)
+                modifier = modifier.weight(1.5f)
             ) {
-                Text(text = stringResource(R.string.scheme_network))
-                Text(text = binInfo.scheme.toString())
+                SchemeComponent(binInfo = binInfo)
                 Spacer(modifier = modifier.height(16.dp))
-                Text(stringResource(R.string.brand))
-                Text(text = binInfo.brand.toString())
+                BrandComponent(binInfo = binInfo)
                 Spacer(modifier = modifier.height(16.dp))
-                Text(stringResource(R.string.card_number))
-                Row {
-                    Column {
-                        Text(stringResource(R.string.length))
-                        Text(text = binInfo.number?.length.toString())
-                    }
-                    Spacer(modifier = modifier.width(16.dp))
-                    Column {
-                        Text(stringResource(R.string.luhn))
-                        Text(
-                            buildAnnotatedString {
-                                if (binInfo.number?.luhn == null) append("null")
-                                else {
-                                    withStyle(style = SpanStyle(fontWeight = if (binInfo.number.luhn == true) FontWeight.Bold else FontWeight.Normal)) {
-                                        append(stringResource(R.string.yes))
-                                    }
-                                    append("/")
-                                    withStyle(style = SpanStyle(fontWeight = if (binInfo.number.luhn == false) FontWeight.Bold else FontWeight.Normal)) {
-                                        append(stringResource(R.string.no))
-                                    }
-                                }
-                            }
-                        )
-                    }
-                }
+                CardNumberComponent(binInfo = binInfo)
                 Spacer(modifier = modifier.height(16.dp))
-                Text(stringResource(R.string.bank))
-                Text(text = binInfo.bank?.name.toString())
-                Text(
-                    modifier = modifier.clickable {
-                        onUrlClick(binInfo.bank?.url)
-                    },
-                    text = binInfo.bank?.url ?: ""
-                )
-                Text(
-                    modifier = modifier.clickable {
-                        onPhoneClick(binInfo.bank?.phone)
-                    },
-                    text = binInfo.bank?.phone ?: ""
+                BankComponent(
+                    binInfo = binInfo,
+                    onPhoneClick = onPhoneClick,
+                    onUrlClick = onUrlClick
                 )
             }
-            Spacer(modifier = modifier.width(20.dp))
+            Spacer(modifier = modifier.width(40.dp))
             Column(
                 modifier = modifier.weight(1f)
             ) {
-                Text(text = stringResource(R.string.type))
-                Text(
-                    buildAnnotatedString {
-                        if (binInfo.type == null) append("null")
-                        else {
-                            withStyle(style = SpanStyle(fontWeight = if (binInfo.type == "debit") FontWeight.Bold else FontWeight.Normal)) {
-                                append(stringResource(R.string.debit))
-                            }
-                            append("/")
-                            withStyle(style = SpanStyle(fontWeight = if (binInfo.type == "credit") FontWeight.Bold else FontWeight.Normal)) {
-                                append(stringResource(R.string.credit))
-                            }
-                        }
-                    }
-                )
+                TypeComponent(binInfo = binInfo)
                 Spacer(modifier = modifier.height(16.dp))
-                Text(stringResource(R.string.prepaid))
-                Text(
-                    buildAnnotatedString {
-                        if (binInfo.prepaid == null) append("null")
-                        else {
-                            withStyle(style = SpanStyle(fontWeight = if (binInfo.prepaid == true) FontWeight.Bold else FontWeight.Normal)) {
-                                append(stringResource(R.string.yes))
-                            }
-                            append("/")
-                            withStyle(style = SpanStyle(fontWeight = if (binInfo.prepaid == false) FontWeight.Bold else FontWeight.Normal)) {
-                                append(stringResource(R.string.no))
-                            }
-                        }
-                    }
-                )
+                PrepaidComponent(binInfo = binInfo)
                 Spacer(modifier = modifier.height(16.dp))
-                Text(stringResource(R.string.country))
-                Column {
-                    Row {
-                        Text(text = binInfo.country?.emoji ?: "")
-                        Text(text = binInfo.country?.name.toString())
-                    }
-                    Column(
-                        modifier = modifier.clickable {
-                            onCoordinatesClick(
-                                binInfo.country?.latitude,
-                                binInfo.country?.longitude
-                            )
-                        }
-                    ) {
-                        Text(
-                            text = if (binInfo.country?.name == null) "" else
-                                stringResource(R.string.latitude) + ": ${binInfo.country.latitude}"
-                        )
-                        Text(
-                            text = if (binInfo.country?.name == null) "" else
-                                stringResource(R.string.longitude) + ": ${binInfo.country.longitude}"
-                        )
-                    }
-                }
+                CountryComponent(
+                    binInfo = binInfo,
+                    onCoordinatesClick = onCoordinatesClick
+                )
             }
         }
     }
