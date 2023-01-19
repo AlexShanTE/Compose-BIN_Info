@@ -6,6 +6,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.composebininfo.R
 import com.example.composebininfo.domain.Bank
@@ -29,7 +30,8 @@ fun BankComponent(
                     onUrlClick(binInfo.bank.url)
                 },
                 text = binInfo.bank.url,
-                maxLines = 1
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
             )
         }
         if (binInfo.bank?.phone !== null) {
