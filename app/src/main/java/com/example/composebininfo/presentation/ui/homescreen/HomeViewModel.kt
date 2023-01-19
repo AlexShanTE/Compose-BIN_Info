@@ -1,4 +1,4 @@
-package com.example.composebininfo.presentation.ui.requestscreen
+package com.example.composebininfo.presentation.ui.homescreen
 
 import android.content.Context
 import android.widget.Toast
@@ -13,13 +13,13 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
-class RequestViewModel : ViewModel() {
+class HomeViewModel : ViewModel() {
 
-    private val _state = MutableStateFlow(RequestScreenUiState())
-    val state: StateFlow<RequestScreenUiState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(HomeScreenUiState())
+    val state: StateFlow<HomeScreenUiState> = _state.asStateFlow()
 
     init {
-        _state.value = RequestScreenUiState(userInput = "")
+        _state.value = HomeScreenUiState(userInput = "")
     }
 
     var userInput by mutableStateOf("")

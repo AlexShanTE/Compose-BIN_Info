@@ -44,7 +44,6 @@ import com.example.composebininfo.presentation.ui.bininfoscreen.components.TypeC
 
 @Composable
 fun BinInfoScreen(
-    modifier: Modifier = Modifier,
     bin: String
 ) {
     val viewModel: BinViewModel = hiltViewModel()

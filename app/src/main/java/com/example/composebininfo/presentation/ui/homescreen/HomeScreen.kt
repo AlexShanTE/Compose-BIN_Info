@@ -1,4 +1,4 @@
-package com.example.composebininfo.presentation.ui.requestscreen
+package com.example.composebininfo.presentation.ui.homescreen
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,13 +26,13 @@ import com.example.composebininfo.R
 import com.example.composebininfo.presentation.ui.mainscreen.Screen
 
 @Composable
-fun RequestScreen(
+fun HomeScreen(
     modifier: Modifier = Modifier,
     navController: NavController
 ) {
-    val requestViewModel: RequestViewModel = hiltViewModel()
+    val viewModel: HomeViewModel = hiltViewModel()
 
-    val uiState by requestViewModel.state.collectAsState()
+    val uiState by viewModel.state.collectAsState()
     val context = LocalContext.current
 
     Column(
@@ -41,14 +41,14 @@ fun RequestScreen(
         modifier = modifier.fillMaxSize()
     ) {
         RequestLayout(
-            userInput = requestViewModel.userInput,
-            onUserInputChange = { input -> requestViewModel.updateUserInput(input) },
+            userInput = viewModel.userInput,
+            onUserInputChange = { input -> viewModel.updateUserInput(input) },
             isCorrectInput = uiState.isCorrectInput ,
             onKeyboardDone = {
-               if (requestViewModel.checkUserInput(requestViewModel.userInput))
-                   navController.navigate(Screen.BinInfoScreen.withArgs(requestViewModel.userInput))
+               if (viewModel.checkUserInput(viewModel.userInput))
+                   navController.navigate(Screen.BinInfoScreen.withArgs(viewModel.userInput))
                else
-                   requestViewModel.makeToast(context,R.string.wrong_input)
+                   viewModel.makeToast(context,R.string.wrong_input)
             }
         )
         Button(
@@ -56,10 +56,10 @@ fun RequestScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 40.dp, vertical = 80.dp),
             onClick = {
-                if (requestViewModel.checkUserInput(requestViewModel.userInput))
-                    navController.navigate(Screen.BinInfoScreen.withArgs(requestViewModel.userInput))
+                if (viewModel.checkUserInput(viewModel.userInput))
+                    navController.navigate(route = Screen.BinInfoScreen.withArgs(viewModel.userInput))
                 else
-                    requestViewModel.makeToast(context,R.string.wrong_input)
+                    viewModel.makeToast(context,R.string.wrong_input)
             }
         ) {
             Text(stringResource(R.string.get_info))
@@ -98,5 +98,5 @@ fun RequestLayout(
 @Preview(showBackground = true)
 fun RequestScreenPreview() {
     val context = LocalContext.current
-    RequestScreen(navController = NavController(context))
+    HomeScreen(navController = NavController(context))
 }
