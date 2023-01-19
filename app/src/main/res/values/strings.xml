@@ -31,4 +31,7 @@
     <string name="phone">PHONE NUMBER</string>
     <string name="location">LOCATION COORDINATES</string>
     <string name="no_one_supports">Application not found</string>
+
+    <!--HistoryScreen-->
+    <string name="clear_history">clear history</string>
 </resources>
