@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">ComposeBINInfo</string>
 
+    <!--RequestScreen screen-->
     <string name="enter_your_bin">Please enter your BIN</string>
     <string name="wrong_input">BIN should be at least 4 sings</string>
     <string name="get_info">Get info</string>
     <string name="bin">BIN</string>
 
-   
+    <!--BinInfo screen-->
     <string name="loading">Loading</string>
     <string name="error">Error</string>
     <string name="refresh">Refresh</string>
@@ -25,4 +26,9 @@
     <string name="latitude">latitude</string>
     <string name="longitude">longitude</string>
     <string name="bank">BANK</string>
+    <!--BinInfo screen chooser-->
+    <string name="url">URL</string>
+    <string name="phone">PHONE NUMBER</string>
+    <string name="location">LOCATION COORDINATES</string>
+    <string name="no_one_supports">Application not found</string>
 </resources>
