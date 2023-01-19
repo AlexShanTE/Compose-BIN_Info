@@ -1,4 +1,4 @@
-package com.example.composebininfo.presentation.ui.bininfoapp
+package com.example.composebininfo.presentation.ui.mainscreen
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
@@ -10,7 +10,7 @@ import com.example.composebininfo.presentation.ui.bininfoscreen.BinInfoScreen
 import com.example.composebininfo.presentation.ui.requestscreen.RequestScreen
 
 @Composable
-fun BinInfoApp() {
+fun MainScreen() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = Screen.RequestScreen.route) {
         composable(route = Screen.RequestScreen.route) {
