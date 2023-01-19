@@ -9,7 +9,7 @@ import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.composebininfo.presentation.ui.bininfoapp.BinInfoApp
+import com.example.composebininfo.presentation.ui.mainscreen.MainScreen
 import com.example.composebininfo.presentation.ui.theme.ComposeBINInfoTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -24,7 +24,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colors.background
                 ) {
-                    BinInfoApp()
+                    MainScreen()
                 }
             }
         }
@@ -35,6 +35,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     ComposeBINInfoTheme {
-        BinInfoApp()
+        MainScreen()
     }
 }

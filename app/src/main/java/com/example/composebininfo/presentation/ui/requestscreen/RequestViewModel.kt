@@ -15,11 +15,11 @@ import kotlinx.coroutines.flow.update
 
 class RequestViewModel : ViewModel() {
 
-    private val _requestScreenUiState = MutableStateFlow(RequestScreenUiState())
-    val requestScreenUiState: StateFlow<RequestScreenUiState> = _requestScreenUiState.asStateFlow()
+    private val _state = MutableStateFlow(RequestScreenUiState())
+    val state: StateFlow<RequestScreenUiState> = _state.asStateFlow()
 
     init {
-        _requestScreenUiState.value = RequestScreenUiState(userInput = "")
+        _state.value = RequestScreenUiState(userInput = "")
     }
 
     var userInput by mutableStateOf("")
@@ -33,10 +33,10 @@ class RequestViewModel : ViewModel() {
 
     fun checkUserInput(input: String): Boolean {
         return if (input.length < 4) {
-            _requestScreenUiState.update { state -> state.copy(isCorrectInput = false) }
+            _state.update { state -> state.copy(isCorrectInput = false) }
             false
         } else {
-            _requestScreenUiState.update { state -> state.copy(isCorrectInput = true) }
+            _state.update { state -> state.copy(isCorrectInput = true) }
             true
         }
     }

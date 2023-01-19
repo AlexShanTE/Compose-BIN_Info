@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.composebininfo.R
-import com.example.composebininfo.presentation.ui.bininfoapp.Screen
+import com.example.composebininfo.presentation.ui.mainscreen.Screen
 
 @Composable
 fun RequestScreen(
@@ -32,7 +32,7 @@ fun RequestScreen(
 ) {
     val requestViewModel: RequestViewModel = hiltViewModel()
 
-    val requestScreenUiState by requestViewModel.requestScreenUiState.collectAsState()
+    val uiState by requestViewModel.state.collectAsState()
     val context = LocalContext.current
 
     Column(
@@ -43,7 +43,7 @@ fun RequestScreen(
         RequestLayout(
             userInput = requestViewModel.userInput,
             onUserInputChange = { input -> requestViewModel.updateUserInput(input) },
-            isCorrectInput = requestScreenUiState.isCorrectInput ,
+            isCorrectInput = uiState.isCorrectInput ,
             onKeyboardDone = {
                if (requestViewModel.checkUserInput(requestViewModel.userInput))
                    navController.navigate(Screen.BinInfoScreen.withArgs(requestViewModel.userInput))
