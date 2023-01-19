@@ -8,14 +8,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.composebininfo.R
 import com.example.composebininfo.domain.Bank
-import com.example.composebininfo.domain.BinInfo
+import com.example.composebininfo.domain.BinInfoModel
 import com.example.composebininfo.domain.Country
 import com.example.composebininfo.domain.Number
 
 @Composable
 fun BrandComponent(
     modifier: Modifier = Modifier,
-    binInfo: BinInfo
+    binInfo: BinInfoModel
 ) {
     Column() {
         Text(stringResource(R.string.brand))
@@ -27,7 +27,7 @@ fun BrandComponent(
 @Preview(showBackground = true)
 fun BrandComponent() {
     BrandComponent(
-        binInfo = BinInfo(
+        binInfo = BinInfoModel(
             bank = Bank(
                 city = "Moscow",
                 name = "Jyske Bank",

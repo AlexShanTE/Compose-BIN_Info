@@ -10,14 +10,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.composebininfo.R
 import com.example.composebininfo.domain.Bank
-import com.example.composebininfo.domain.BinInfo
+import com.example.composebininfo.domain.BinInfoModel
 import com.example.composebininfo.domain.Country
 import com.example.composebininfo.domain.Number
 
 @Composable
 fun CountryComponent(
     modifier: Modifier = Modifier,
-    binInfo: BinInfo,
+    binInfo: BinInfoModel,
     onCoordinatesClick: (latitude: Double?, longitude: Double?) -> Unit
 ) {
     Column() {
@@ -53,7 +53,7 @@ fun CountryComponent(
 @Preview(showBackground = true)
 fun CountryComponentPreview() {
     CountryComponent(
-        binInfo = BinInfo(
+        binInfo = BinInfoModel(
             bank = Bank(
                 city = "Moscow",
                 name = "Jyske Bank",

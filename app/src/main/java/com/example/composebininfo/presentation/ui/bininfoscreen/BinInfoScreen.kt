@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.composebininfo.R
 import com.example.composebininfo.domain.Bank
-import com.example.composebininfo.domain.BinInfo
+import com.example.composebininfo.domain.BinInfoModel
 import com.example.composebininfo.domain.Country
 import com.example.composebininfo.domain.Number
 import com.example.composebininfo.presentation.ui.bininfoscreen.BinViewModel.Companion.GEO
@@ -44,7 +44,6 @@ import com.example.composebininfo.presentation.ui.bininfoscreen.components.TypeC
 
 @Composable
 fun BinInfoScreen(
-    modifier: Modifier = Modifier,
     bin: String
 ) {
     val viewModel: BinViewModel = hiltViewModel()
@@ -82,7 +81,7 @@ fun BinInfoScreen(
 @Composable
 fun BinInfoLayout(
     modifier: Modifier = Modifier,
-    binInfo: BinInfo,
+    binInfo: BinInfoModel,
     onCoordinatesClick: (latitude: Double?, longitude: Double?) -> Unit,
     onUrlClick: (url: String?) -> Unit,
     onPhoneClick: (phone: String?) -> Unit
@@ -185,7 +184,7 @@ fun ErrorLayout(
 @Preview(showBackground = true)
 fun BinInfoLayoutPreview() {
     BinInfoLayout(
-        binInfo = BinInfo(
+        binInfo = BinInfoModel(
             bank = Bank(
                 city = "Moscow",
                 name = "Jyske Bank",

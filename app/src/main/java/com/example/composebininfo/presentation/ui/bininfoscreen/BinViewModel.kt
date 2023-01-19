@@ -13,7 +13,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.composebininfo.R
 import com.example.composebininfo.di.IoDispatcher
-import com.example.composebininfo.domain.BinInfo
+import com.example.composebininfo.domain.BinInfoModel
 import com.example.composebininfo.domain.BinRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -34,7 +34,7 @@ class BinViewModel @Inject constructor(
     private val _state = MutableStateFlow(BinInfoUiState())
     val state: StateFlow<BinInfoUiState> = _state.asStateFlow()
 
-    var binInfo by mutableStateOf(BinInfo())
+    var binInfo by mutableStateOf(BinInfoModel())
         private set
 
     init {

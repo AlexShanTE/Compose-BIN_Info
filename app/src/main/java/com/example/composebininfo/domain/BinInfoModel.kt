@@ -1,6 +1,6 @@
 package com.example.composebininfo.domain
 
-data class BinInfo(
+data class BinInfoModel(
     val bank: Bank? = null,
     val brand: String? = null,
     val country: Country? = null,

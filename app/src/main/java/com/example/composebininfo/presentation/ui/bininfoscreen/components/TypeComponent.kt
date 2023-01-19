@@ -12,14 +12,14 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.composebininfo.R
 import com.example.composebininfo.domain.Bank
-import com.example.composebininfo.domain.BinInfo
+import com.example.composebininfo.domain.BinInfoModel
 import com.example.composebininfo.domain.Country
 import com.example.composebininfo.domain.Number
 
 @Composable
 fun TypeComponent(
     modifier: Modifier = Modifier,
-    binInfo: BinInfo
+    binInfo: BinInfoModel
 ){
     Column() {
         Text(text = stringResource(R.string.type))
@@ -44,7 +44,7 @@ fun TypeComponent(
 @Preview(showBackground = true)
 fun TypeComponentPreview() {
     TypeComponent(
-        binInfo = BinInfo(
+        binInfo = BinInfoModel(
             bank = Bank(
                 city = "Moscow",
                 name = "Jyske Bank",
