@@ -1,6 +1,7 @@
 package com.example.composebininfo.presentation.ui.bininfoscreen
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -19,6 +20,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
@@ -34,6 +36,9 @@ import com.example.composebininfo.domain.Bank
 import com.example.composebininfo.domain.BinInfo
 import com.example.composebininfo.domain.Country
 import com.example.composebininfo.domain.Number
+import com.example.composebininfo.presentation.ui.bininfoscreen.BinViewModel.Companion.GEO
+import com.example.composebininfo.presentation.ui.bininfoscreen.BinViewModel.Companion.PHONE
+import com.example.composebininfo.presentation.ui.bininfoscreen.BinViewModel.Companion.URL
 
 @Composable
 fun BinInfoScreen(
@@ -43,9 +48,27 @@ fun BinInfoScreen(
     val viewModel: BinViewModel = hiltViewModel()
     val uiState by viewModel.state.collectAsState()
 
+    val context = LocalContext.current
+
     when (uiState.status) {
         is State.Loading -> LoadingLayout()
-        is State.Loaded -> BinInfoLayout(binInfo = viewModel.binInfo)
+        is State.Loaded -> BinInfoLayout(
+            binInfo = viewModel.binInfo,
+            onCoordinatesClick = { latitude, longitude ->
+                viewModel.startActivityWithIntent(
+                    context,
+                    type = GEO,
+                    data = if (latitude == null || longitude == null) "null"
+                    else "$latitude, $longitude"
+                )
+            },
+            onUrlClick = { url ->
+                viewModel.startActivityWithIntent(context, type = URL, data = url.toString())
+            },
+            onPhoneClick = { phone ->
+                viewModel.startActivityWithIntent(context, type = PHONE, data = phone.toString())
+            }
+        )
         is State.Error -> ErrorLayout(errorMessage = (uiState.status as State.Error).error) {
             viewModel.getInfo(bin)
         }
@@ -57,7 +80,10 @@ fun BinInfoScreen(
 @Composable
 fun BinInfoLayout(
     modifier: Modifier = Modifier,
-    binInfo: BinInfo
+    binInfo: BinInfo,
+    onCoordinatesClick: (latitude: Double?, longitude: Double?) -> Unit,
+    onUrlClick: (url: String?) -> Unit,
+    onPhoneClick: (phone: String?) -> Unit
 ) {
     Card(
         modifier = modifier
@@ -81,13 +107,13 @@ fun BinInfoLayout(
                 Text(text = binInfo.brand.toString())
                 Spacer(modifier = modifier.height(16.dp))
                 Text(stringResource(R.string.card_number))
-                Row() {
-                    Column() {
+                Row {
+                    Column {
                         Text(stringResource(R.string.length))
                         Text(text = binInfo.number?.length.toString())
                     }
                     Spacer(modifier = modifier.width(16.dp))
-                    Column() {
+                    Column {
                         Text(stringResource(R.string.luhn))
                         Text(
                             buildAnnotatedString {
@@ -108,9 +134,20 @@ fun BinInfoLayout(
                 Spacer(modifier = modifier.height(16.dp))
                 Text(stringResource(R.string.bank))
                 Text(text = binInfo.bank?.name.toString())
-                Text(text = binInfo.bank?.url ?: "")
-                Text(text = binInfo.bank?.phone ?: "")
+                Text(
+                    modifier = modifier.clickable {
+                        onUrlClick(binInfo.bank?.url)
+                    },
+                    text = binInfo.bank?.url ?: ""
+                )
+                Text(
+                    modifier = modifier.clickable {
+                        onPhoneClick(binInfo.bank?.phone)
+                    },
+                    text = binInfo.bank?.phone ?: ""
+                )
             }
+            Spacer(modifier = modifier.width(20.dp))
             Column(
                 modifier = modifier.weight(1f)
             ) {
@@ -148,18 +185,27 @@ fun BinInfoLayout(
                 Spacer(modifier = modifier.height(16.dp))
                 Text(stringResource(R.string.country))
                 Column {
-                    Row() {
+                    Row {
                         Text(text = binInfo.country?.emoji ?: "")
                         Text(text = binInfo.country?.name.toString())
                     }
-                    Text(
-                        text = if (binInfo.country?.name == null) "" else
-                            stringResource(R.string.latitude) + ": ${binInfo.country.latitude}"
-                    )
-                    Text(
-                        text = if (binInfo.country?.name == null) "" else
-                            stringResource(R.string.longitude) + ": ${binInfo.country.longitude}"
-                    )
+                    Column(
+                        modifier = modifier.clickable {
+                            onCoordinatesClick(
+                                binInfo.country?.latitude,
+                                binInfo.country?.longitude
+                            )
+                        }
+                    ) {
+                        Text(
+                            text = if (binInfo.country?.name == null) "" else
+                                stringResource(R.string.latitude) + ": ${binInfo.country.latitude}"
+                        )
+                        Text(
+                            text = if (binInfo.country?.name == null) "" else
+                                stringResource(R.string.longitude) + ": ${binInfo.country.longitude}"
+                        )
+                    }
                 }
             }
         }
@@ -241,7 +287,10 @@ fun BinInfoLayoutPreview() {
             prepaid = false,
             scheme = "visa",
             type = "debit"
-        )
+        ),
+        onUrlClick = {},
+        onCoordinatesClick = { _, _ -> },
+        onPhoneClick = {}
     )
 }
 
