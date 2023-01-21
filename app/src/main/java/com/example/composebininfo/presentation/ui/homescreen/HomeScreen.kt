@@ -45,8 +45,10 @@ fun HomeScreen(
             onUserInputChange = { input -> viewModel.updateUserInput(input) },
             isCorrectInput = uiState.isCorrectInput ,
             onKeyboardDone = {
-               if (viewModel.checkUserInput(viewModel.userInput))
+               if (viewModel.checkUserInput(viewModel.userInput)) {
+                   viewModel.insert(bin = viewModel.userInput)
                    navController.navigate(Screen.BinInfoScreen.withArgs(viewModel.userInput))
+               }
                else
                    viewModel.makeToast(context,R.string.wrong_input)
             }
@@ -56,8 +58,10 @@ fun HomeScreen(
                 .fillMaxWidth()
                 .padding(horizontal = 40.dp, vertical = 80.dp),
             onClick = {
-                if (viewModel.checkUserInput(viewModel.userInput))
-                    navController.navigate(route = Screen.BinInfoScreen.withArgs(viewModel.userInput))
+                if (viewModel.checkUserInput(viewModel.userInput)) {
+                    viewModel.insert(bin = viewModel.userInput)
+                    navController.navigate(Screen.BinInfoScreen.withArgs(viewModel.userInput))
+                }
                 else
                     viewModel.makeToast(context,R.string.wrong_input)
             }

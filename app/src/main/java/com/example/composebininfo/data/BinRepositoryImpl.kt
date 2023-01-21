@@ -8,6 +8,7 @@ class BinRepositoryImpl(
 ): BinRepository {
 
     override suspend fun getInfo(bin: String): BinInfoModel {
+        println("BinInforepo getinfo thread ${Thread.currentThread().name}")
         return binApi.getInfoByBin(bin = bin)
     }
 
