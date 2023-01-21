@@ -22,12 +22,11 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class BinViewModel @Inject constructor(
-    private val repository: BinRepository,
+    private val binRepository: BinRepository,
     @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
@@ -42,16 +41,14 @@ class BinViewModel @Inject constructor(
     }
 
     fun getInfo(bin: String) {
-        viewModelScope.launch {
-            withContext(dispatcher) {
-                _state.update { state -> state.copy(status = State.Loading) }
-                try {
-                    binInfo = repository.getInfo(bin)
-                    _state.update { state -> state.copy(status = State.Loaded(binInfo)) }
-                } catch (error: Throwable) {
-                    val message = error.message ?: error.toString()
-                    _state.update { state -> state.copy(status = State.Error(message)) }
-                }
+        viewModelScope.launch(dispatcher) {
+            _state.update { state -> state.copy(status = State.Loading) }
+            try {
+                binInfo = binRepository.getInfo(bin)
+                _state.update { state -> state.copy(status = State.Loaded(binInfo)) }
+            } catch (error: Throwable) {
+                val message = error.message ?: error.toString()
+                _state.update { state -> state.copy(status = State.Error(message)) }
             }
         }
     }
@@ -82,7 +79,7 @@ class BinViewModel @Inject constructor(
                 startActivity(context, chooser, null)
             } catch (e: ActivityNotFoundException) {
                 val noOneActivitySupport = context.getString(R.string.no_one_supports)
-                Toast.makeText(context,noOneActivitySupport, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, noOneActivitySupport, Toast.LENGTH_SHORT).show()
             }
         }
     }

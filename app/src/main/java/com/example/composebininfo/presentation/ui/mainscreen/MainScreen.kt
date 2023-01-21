@@ -33,7 +33,7 @@ fun MainScreen(
             HomeScreen(navController = navController)
         }
         composable(route = Screen.HistoryScreen.route) {
-            HistoryScreen()
+            HistoryScreen(navController = navController)
         }
         composable(
             route = Screen.BinInfoScreen.route + "/{BIN}",
@@ -78,9 +78,11 @@ fun BottomNavigationBar(
                 BottomNavigationItem(
                     selected = item.route == navController.currentDestination?.route,
                     onClick = {
-                        if (currentDestination?.route == Screen.HistoryScreen.route) {
-                            navController.popBackStack()
-                        } else onItemCLick(item)
+                        if (!selected) {
+                            if (currentDestination?.route == Screen.HistoryScreen.route) {
+                                navController.popBackStack()
+                            } else onItemCLick(item)
+                        }
                     },
                     icon = {
                         if (selected) {

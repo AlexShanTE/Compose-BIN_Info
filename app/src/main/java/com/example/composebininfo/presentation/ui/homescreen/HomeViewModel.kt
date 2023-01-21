@@ -8,12 +8,24 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.composebininfo.di.IoDispatcher
+import com.example.composebininfo.domain.BinHistoryItem
+import com.example.composebininfo.domain.HistoryRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel : ViewModel() {
+@HiltViewModel
+class HomeViewModel @Inject constructor(
+    private val repository: HistoryRepository,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher
+) : ViewModel() {
 
     private val _state = MutableStateFlow(HomeScreenUiState())
     val state: StateFlow<HomeScreenUiState> = _state.asStateFlow()
@@ -28,6 +40,12 @@ class HomeViewModel : ViewModel() {
     fun updateUserInput(input: String) {
         if (input.isDigitsOnly()) {
             userInput = input
+        }
+    }
+
+    fun insert(bin: String) {
+        viewModelScope.launch(dispatcher) {
+            repository.insert(BinHistoryItem(bin = bin))
         }
     }
 
