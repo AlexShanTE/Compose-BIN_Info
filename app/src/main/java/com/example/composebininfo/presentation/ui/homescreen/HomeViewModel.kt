@@ -59,6 +59,10 @@ class HomeViewModel @Inject constructor(
         }
     }
 
+    fun clearTextField() {
+        updateUserInput("")
+    }
+
     fun makeToast(context: Context, @StringRes text: Int) {
         Toast.makeText(
             context, text, Toast.LENGTH_SHORT
