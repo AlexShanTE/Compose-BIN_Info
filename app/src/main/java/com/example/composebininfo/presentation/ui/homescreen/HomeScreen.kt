@@ -70,13 +70,15 @@ fun HomeScreen(
                         viewModel.makeToast(context, R.string.wrong_input)
                 }
             )
-            Icon(
-                modifier = modifier
-                    .width(40.dp)
-                    .clickable { viewModel.clearTextField() },
-                imageVector = Icons.Default.Close,
-                contentDescription = "delete history item"
-            )
+            if (viewModel.userInput.isNotEmpty()) {
+                Icon(
+                    modifier = modifier
+                        .width(40.dp)
+                        .clickable { viewModel.clearTextField() },
+                    imageVector = Icons.Default.Close,
+                    contentDescription = "delete history item"
+                )
+            }
         }
         Button(
             modifier = modifier
