@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -45,7 +46,9 @@ fun HomeScreen(
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
-        modifier = modifier.fillMaxSize().padding(horizontal = 12.dp)
+        modifier = modifier
+            .fillMaxSize()
+            .padding(horizontal = 12.dp)
     ) {
         Row(
             modifier = modifier
@@ -68,7 +71,8 @@ fun HomeScreen(
                 }
             )
             Icon(
-                modifier = modifier.width(40.dp)
+                modifier = modifier
+                    .width(40.dp)
                     .clickable { viewModel.clearTextField() },
                 imageVector = Icons.Default.Close,
                 contentDescription = "delete history item"
@@ -110,11 +114,12 @@ fun RequestLayout(
         label = { Text(stringResource(R.string.enter_your_bin)) },
         isError = !isCorrectInput,
         keyboardOptions = KeyboardOptions.Default.copy(
-            imeAction = ImeAction.Done
+            imeAction = ImeAction.Done,
+            keyboardType = KeyboardType.Number
         ),
         keyboardActions = KeyboardActions(
             onDone = { onKeyboardDone() }
-        ),
+        )
     )
 }
 
