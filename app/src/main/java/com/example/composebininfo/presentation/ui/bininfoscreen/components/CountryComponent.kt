@@ -3,6 +3,7 @@ package com.example.composebininfo.presentation.ui.bininfoscreen.components
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -37,11 +38,13 @@ fun CountryComponent(
                 ) {
                     Text(
                         text = if (binInfo.country.name == null) "" else
-                            stringResource(R.string.latitude) + ": ${binInfo.country.latitude}"
+                            stringResource(R.string.latitude) + ": ${binInfo.country.latitude}",
+                        color = MaterialTheme.colors.secondary
                     )
                     Text(
                         text = if (binInfo.country.name == null) "" else
-                            stringResource(R.string.longitude) + ": ${binInfo.country.longitude}"
+                            stringResource(R.string.longitude) + ": ${binInfo.country.longitude}",
+                        color = MaterialTheme.colors.secondary
                     )
                 }
             }

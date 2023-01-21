@@ -4,7 +4,7 @@
     <!--RequestScreen screen-->
     <string name="enter_your_bin">Please enter your BIN</string>
     <string name="wrong_input">BIN should be at least 4 sings</string>
-    <string name="get_info">Get info</string>
+    <string name="get_info">GEN INFO</string>
     <string name="bin">BIN</string>
 
     <!--BinInfo screen-->
@@ -33,5 +33,5 @@
     <string name="no_one_supports">Application not found</string>
 
     <!--HistoryScreen-->
-    <string name="clear_history">clear history</string>
+    <string name="clear_history">CLEAR HISTORY</string>
 </resources>
