@@ -2,10 +2,12 @@ package com.example.composebininfo.presentation.ui.bininfoscreen.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.composebininfo.R
@@ -32,6 +34,8 @@ fun BankComponent(
                 text = binInfo.bank.url,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
+                textDecoration = TextDecoration.Underline,
+                color = MaterialTheme.colors.secondary
             )
         }
         if (binInfo.bank?.phone !== null) {
@@ -40,7 +44,8 @@ fun BankComponent(
                     onPhoneClick(binInfo.bank.phone)
                 },
                 text = binInfo.bank.phone,
-                maxLines = 1
+                maxLines = 1,
+                color = MaterialTheme.colors.secondary
             )
         }
     }
@@ -71,5 +76,5 @@ fun BankComponentPreview() {
             prepaid = false,
             scheme = "visa",
             type = "debit"
-        ), onUrlClick = {} , onPhoneClick = {} )
+        ), onUrlClick = {}, onPhoneClick = {})
 }
