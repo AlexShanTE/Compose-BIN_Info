@@ -1,10 +1,10 @@
-package com.example.composebininfo.presentation.ui.historyscreen
+package com.example.composebininfo.presentation.ui.history
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.composebininfo.di.IoDispatcher
-import com.example.composebininfo.domain.BinHistoryItem
-import com.example.composebininfo.domain.HistoryRepository
+import com.example.composebininfo.domain.models.BinHistoryItem
+import com.example.composebininfo.domain.repositories.HistoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -20,8 +20,8 @@ class HistoryViewModel @Inject constructor(
     @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(HistoryScreenUiState())
-    val state: StateFlow<HistoryScreenUiState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(HistoryState())
+    val state: StateFlow<HistoryState> = _state.asStateFlow()
 
     init {
         viewModelScope.launch(dispatcher) {

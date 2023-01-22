@@ -1,5 +1,6 @@
-package com.example.composebininfo.domain
+package com.example.composebininfo.domain.repositories
 
+import com.example.composebininfo.domain.models.BinHistoryItem
 import kotlinx.coroutines.flow.Flow
 
 interface HistoryRepository {

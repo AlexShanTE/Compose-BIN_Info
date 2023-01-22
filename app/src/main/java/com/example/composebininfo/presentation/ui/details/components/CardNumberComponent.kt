@@ -1,4 +1,4 @@
-package com.example.composebininfo.presentation.ui.bininfoscreen.components
+package com.example.composebininfo.presentation.ui.details.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,15 +15,15 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.composebininfo.R
-import com.example.composebininfo.domain.Bank
-import com.example.composebininfo.domain.BinInfoModel
-import com.example.composebininfo.domain.Country
-import com.example.composebininfo.domain.Number
+import com.example.composebininfo.domain.models.Bank
+import com.example.composebininfo.domain.models.Bin
+import com.example.composebininfo.domain.models.Country
+import com.example.composebininfo.domain.models.Number
 
 @Composable
 fun CardNumberComponent(
     modifier: Modifier = Modifier,
-    binInfo: BinInfoModel
+    binInfo: Bin
 ){
     Column {
         Text(stringResource(R.string.card_number))
@@ -58,7 +58,7 @@ fun CardNumberComponent(
 @Preview(showBackground = true)
 fun CardNumberComponentPreview() {
     CardNumberComponent(
-        binInfo = BinInfoModel(
+        binInfo = Bin(
             bank = Bank(
                 city = "Moscow",
                 name = "Jyske Bank",

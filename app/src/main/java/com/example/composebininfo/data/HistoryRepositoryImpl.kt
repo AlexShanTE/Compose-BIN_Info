@@ -1,8 +1,8 @@
 package com.example.composebininfo.data
 
 import com.example.composebininfo.data.db.BinDao
-import com.example.composebininfo.domain.BinHistoryItem
-import com.example.composebininfo.domain.HistoryRepository
+import com.example.composebininfo.domain.models.BinHistoryItem
+import com.example.composebininfo.domain.repositories.HistoryRepository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 

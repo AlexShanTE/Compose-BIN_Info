@@ -1,4 +1,4 @@
-package com.example.composebininfo.presentation.ui.homescreen
+package com.example.composebininfo.presentation.ui.home
 
 import android.content.Context
 import android.widget.Toast
@@ -10,8 +10,8 @@ import androidx.core.text.isDigitsOnly
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.composebininfo.di.IoDispatcher
-import com.example.composebininfo.domain.BinHistoryItem
-import com.example.composebininfo.domain.HistoryRepository
+import com.example.composebininfo.domain.models.BinHistoryItem
+import com.example.composebininfo.domain.repositories.HistoryRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,11 +27,11 @@ class HomeViewModel @Inject constructor(
     @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(HomeScreenUiState())
-    val state: StateFlow<HomeScreenUiState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(HomeState())
+    val state: StateFlow<HomeState> = _state.asStateFlow()
 
     init {
-        _state.value = HomeScreenUiState(userInput = "")
+        _state.value = HomeState(userInput = "")
     }
 
     var userInput by mutableStateOf("")

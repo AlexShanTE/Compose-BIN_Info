@@ -1,4 +1,4 @@
-package com.example.composebininfo.domain
+package com.example.composebininfo.domain.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

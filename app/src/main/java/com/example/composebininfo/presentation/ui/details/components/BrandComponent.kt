@@ -1,4 +1,5 @@
-package com.example.composebininfo.presentation.ui.bininfoscreen.components
+package com.example.composebininfo.presentation.ui.details.components
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -6,27 +7,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.composebininfo.R
-import com.example.composebininfo.domain.Bank
-import com.example.composebininfo.domain.BinInfoModel
-import com.example.composebininfo.domain.Country
-import com.example.composebininfo.domain.Number
+import com.example.composebininfo.domain.models.Bank
+import com.example.composebininfo.domain.models.Bin
+import com.example.composebininfo.domain.models.Country
+import com.example.composebininfo.domain.models.Number
 
 @Composable
-fun SchemeComponent(
+fun BrandComponent(
     modifier: Modifier = Modifier,
-    binInfo: BinInfoModel
-){
+    binInfo: Bin
+) {
     Column() {
-        Text(text = stringResource(R.string.scheme_network))
-        Text(text = binInfo.scheme.toString())
+        Text(stringResource(R.string.brand))
+        Text(text = binInfo.brand.toString())
     }
 }
 
 @Composable
 @Preview(showBackground = true)
-fun SchemeComponentPreview() {
-    SchemeComponent(
-        binInfo = BinInfoModel(
+fun BrandComponent() {
+    BrandComponent(
+        binInfo = Bin(
             bank = Bank(
                 city = "Moscow",
                 name = "Jyske Bank",

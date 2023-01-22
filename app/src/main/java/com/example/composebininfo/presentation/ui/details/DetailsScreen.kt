@@ -1,52 +1,44 @@
-package com.example.composebininfo.presentation.ui.bininfoscreen
+package com.example.composebininfo.presentation.ui.details
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.material.Button
 import androidx.compose.material.Card
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.example.composebininfo.R
-import com.example.composebininfo.domain.Bank
-import com.example.composebininfo.domain.BinInfoModel
-import com.example.composebininfo.domain.Country
-import com.example.composebininfo.domain.Number
-import com.example.composebininfo.presentation.ui.bininfoscreen.BinViewModel.Companion.GEO
-import com.example.composebininfo.presentation.ui.bininfoscreen.BinViewModel.Companion.PHONE
-import com.example.composebininfo.presentation.ui.bininfoscreen.BinViewModel.Companion.URL
-import com.example.composebininfo.presentation.ui.bininfoscreen.components.BankComponent
-import com.example.composebininfo.presentation.ui.bininfoscreen.components.BrandComponent
-import com.example.composebininfo.presentation.ui.bininfoscreen.components.CardNumberComponent
-import com.example.composebininfo.presentation.ui.bininfoscreen.components.CountryComponent
-import com.example.composebininfo.presentation.ui.bininfoscreen.components.PrepaidComponent
-import com.example.composebininfo.presentation.ui.bininfoscreen.components.SchemeComponent
-import com.example.composebininfo.presentation.ui.bininfoscreen.components.TypeComponent
+import com.example.composebininfo.domain.models.Bank
+import com.example.composebininfo.domain.models.Bin
+import com.example.composebininfo.domain.models.Country
+import com.example.composebininfo.domain.models.Number
+import com.example.composebininfo.presentation.ui.details.DetailsViewModel.Companion.GEO
+import com.example.composebininfo.presentation.ui.details.DetailsViewModel.Companion.PHONE
+import com.example.composebininfo.presentation.ui.details.DetailsViewModel.Companion.URL
+import com.example.composebininfo.presentation.ui.details.components.BankComponent
+import com.example.composebininfo.presentation.ui.details.components.BrandComponent
+import com.example.composebininfo.presentation.ui.details.components.CardNumberComponent
+import com.example.composebininfo.presentation.ui.details.components.CountryComponent
+import com.example.composebininfo.presentation.ui.details.components.ErrorLayout
+import com.example.composebininfo.presentation.ui.details.components.LoadingLayout
+import com.example.composebininfo.presentation.ui.details.components.PrepaidComponent
+import com.example.composebininfo.presentation.ui.details.components.SchemeComponent
+import com.example.composebininfo.presentation.ui.details.components.TypeComponent
 
 @Composable
-fun BinInfoScreen(
+fun DetailsScreen(
     bin: String
 ) {
-    val viewModel: BinViewModel = hiltViewModel()
+    val viewModel: DetailsViewModel = hiltViewModel()
     val uiState by viewModel.state.collectAsState()
 
     val context = LocalContext.current
@@ -81,7 +73,7 @@ fun BinInfoScreen(
 @Composable
 fun BinInfoLayout(
     modifier: Modifier = Modifier,
-    binInfo: BinInfoModel,
+    binInfo: Bin,
     onCoordinatesClick: (latitude: Double?, longitude: Double?) -> Unit,
     onUrlClick: (url: String?) -> Unit,
     onPhoneClick: (phone: String?) -> Unit
@@ -131,60 +123,10 @@ fun BinInfoLayout(
 }
 
 @Composable
-fun LoadingLayout(
-    modifier: Modifier = Modifier
-) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(stringResource(R.string.loading))
-        Spacer(modifier = modifier.height(48.dp))
-        CircularProgressIndicator()
-    }
-}
-
-@Composable
-fun ErrorLayout(
-    modifier: Modifier = Modifier,
-    errorMessage: String,
-    onRefreshButtonClick: () -> Unit
-) {
-    Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Image(
-            painter = painterResource(R.drawable.ic_error),
-            contentDescription = stringResource(R.string.error)
-        )
-        Spacer(modifier = modifier.height(16.dp))
-        Text(
-            modifier = modifier
-                .padding(horizontal = 80.dp)
-                .fillMaxWidth(),
-            text = errorMessage,
-            textAlign = TextAlign.Center
-        )
-        Spacer(modifier = modifier.height(80.dp))
-        Button(
-            onClick = { onRefreshButtonClick() },
-            modifier = modifier
-                .height(40.dp)
-                .width(180.dp)
-        ) {
-            Text(text = stringResource(R.string.refresh))
-        }
-    }
-}
-
-@Composable
 @Preview(showBackground = true)
 fun BinInfoLayoutPreview() {
     BinInfoLayout(
-        binInfo = BinInfoModel(
+        binInfo = Bin(
             bank = Bank(
                 city = "Moscow",
                 name = "Jyske Bank",

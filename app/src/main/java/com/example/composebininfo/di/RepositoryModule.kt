@@ -4,8 +4,8 @@ import com.example.composebininfo.data.BinApi
 import com.example.composebininfo.data.BinRepositoryImpl
 import com.example.composebininfo.data.HistoryRepositoryImpl
 import com.example.composebininfo.data.db.BinDataBase
-import com.example.composebininfo.domain.BinRepository
-import com.example.composebininfo.domain.HistoryRepository
+import com.example.composebininfo.domain.repositories.BinRepository
+import com.example.composebininfo.domain.repositories.HistoryRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

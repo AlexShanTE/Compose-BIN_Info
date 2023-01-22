@@ -19,10 +19,10 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.rememberNavController
 import com.example.composebininfo.R
-import com.example.composebininfo.presentation.ui.mainscreen.BottomNavItem
-import com.example.composebininfo.presentation.ui.mainscreen.BottomNavigationBar
-import com.example.composebininfo.presentation.ui.mainscreen.MainScreen
-import com.example.composebininfo.presentation.ui.mainscreen.Screen
+import com.example.composebininfo.presentation.ui.main.BottomNavItem
+import com.example.composebininfo.presentation.ui.main.BottomNavigationBar
+import com.example.composebininfo.presentation.ui.main.MainScreen
+import com.example.composebininfo.presentation.ui.main.Screen
 import com.example.composebininfo.presentation.ui.theme.ComposeBINInfoTheme
 import dagger.hilt.android.AndroidEntryPoint
 

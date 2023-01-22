@@ -1,4 +1,4 @@
-package com.example.composebininfo.presentation.ui.bininfoscreen
+package com.example.composebininfo.presentation.ui.details
 
 import android.content.ActivityNotFoundException
 import android.content.Context
@@ -13,8 +13,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.composebininfo.R
 import com.example.composebininfo.di.IoDispatcher
-import com.example.composebininfo.domain.BinInfoModel
-import com.example.composebininfo.domain.BinRepository
+import com.example.composebininfo.domain.models.Bin
+import com.example.composebininfo.domain.repositories.BinRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,19 +25,19 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class BinViewModel @Inject constructor(
+class DetailsViewModel @Inject constructor(
     private val binRepository: BinRepository,
     @IoDispatcher private val dispatcher: CoroutineDispatcher
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(BinInfoUiState())
-    val state: StateFlow<BinInfoUiState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(DetailsState())
+    val state: StateFlow<DetailsState> = _state.asStateFlow()
 
-    var binInfo by mutableStateOf(BinInfoModel())
+    var binInfo by mutableStateOf(Bin())
         private set
 
     init {
-        _state.value = BinInfoUiState(State.Idle)
+        _state.value = DetailsState(State.Idle)
     }
 
     fun getInfo(bin: String) {

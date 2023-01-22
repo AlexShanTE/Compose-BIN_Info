@@ -1,4 +1,4 @@
-package com.example.composebininfo.presentation.ui.bininfoscreen.components
+package com.example.composebininfo.presentation.ui.details.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -11,15 +11,15 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.composebininfo.R
-import com.example.composebininfo.domain.Bank
-import com.example.composebininfo.domain.BinInfoModel
-import com.example.composebininfo.domain.Country
-import com.example.composebininfo.domain.Number
+import com.example.composebininfo.domain.models.Bank
+import com.example.composebininfo.domain.models.Bin
+import com.example.composebininfo.domain.models.Country
+import com.example.composebininfo.domain.models.Number
 
 @Composable
 fun BankComponent(
     modifier: Modifier = Modifier,
-    binInfo: BinInfoModel,
+    binInfo: Bin,
     onUrlClick: (url: String?) -> Unit,
     onPhoneClick: (phone: String?) -> Unit
 ) {
@@ -55,7 +55,7 @@ fun BankComponent(
 @Preview(showBackground = true)
 fun BankComponentPreview() {
     BankComponent(
-        binInfo = BinInfoModel(
+        binInfo = Bin(
             bank = Bank(
                 city = "Moscow",
                 name = "Jyske Bank",
