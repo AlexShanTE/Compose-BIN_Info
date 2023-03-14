@@ -11,7 +11,7 @@ Compose-Bin_Info
 
 
 ## HomeScreen
-### /features_desqription
+### /features_description
 + Поле ввода сохраняет значение при смене состояния
 + Иконка очистки поля ввода появляется только при условии, что в нем содержится хотя бы 1 сивол
 + Для ввода доступны только цифры (буквы и символы игнорируются)
@@ -33,7 +33,7 @@ Compose-Bin_Info
 <img src="https://user-images.githubusercontent.com/98952360/213885595-ee3c26b0-d6eb-4b63-93eb-6e00f9ae0be1.jpg" width=20% height=20%> <img src="https://user-images.githubusercontent.com/98952360/213885602-9b7eb066-1219-4902-83a2-2c1f846a3f36.jpg" width=20% height=20%>
 
 ## DetailsScreen
-### /features_desqription
+### /features_description
 + Отображает информацию по введенному BIN
 + При клике на телефон банка, сайт банка или координаты местоположения (при наличии) предложит открыть приложение способное обработать вышеупомянутые типы данных
 + При осуществлении загрузки данных отображается LoadingScreen
@@ -45,7 +45,7 @@ Compose-Bin_Info
 <img src="https://user-images.githubusercontent.com/98952360/213885685-a28c7ee6-c166-4272-b4b5-8558b5c8ac86.jpg" width=20% height=20%>
 
 ## HistoryScreen
-### /features_desqription
+### /features_description
 + Отображает список из введенных ранее запросов
 + Сохраняет информацию при смене стостояния
 + Информация не теряется при перезапуске приложения
